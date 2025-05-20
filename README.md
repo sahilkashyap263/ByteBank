@@ -7,7 +7,7 @@ This project simulates essential banking operations in a user-friendly environme
 - 🧾 Customer account creation and management  
 - 💰 Deposit and withdrawal functionality  
 - 📊 Balance inquiries and account details display  
-- 🧾 Transaction history (optional)  
+- 🧾 Transaction history
 - 🗂️ MySQL integration for persistent data storage  
 - 🖥️ Interactive GUI using Java Swing and AWT  
 
