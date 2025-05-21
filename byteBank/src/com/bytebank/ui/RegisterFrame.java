@@ -8,9 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RegisterFrame extends JFrame {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -20,68 +17,89 @@ public class RegisterFrame extends JFrame {
     private JButton registerButton;
     private JButton backButton;
     private UserService userService;
-    
+
     public RegisterFrame() {
         userService = new UserService();
         initComponents();
     }
-    
+
     private void initComponents() {
         setTitle("ByteBank - Register");
-        setSize(500, 400);
+        setSize(500, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
-        // Create components
+
+        // Colors and fonts
+        Color primaryColor = new Color(52, 152, 219); // Blue
+        Color bgColor = new Color(245, 245, 245);
+        Font labelFont = new Font("Segoe UI", Font.PLAIN, 14);
+        Font fieldFont = new Font("Segoe UI", Font.PLAIN, 14);
+
+        // Title label
         JLabel titleLabel = new JLabel("Register New Account");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        titleLabel.setForeground(Color.WHITE);
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
-        
+
+        JPanel titlePanel = new JPanel();
+        titlePanel.setBackground(primaryColor);
+        titlePanel.setPreferredSize(new Dimension(500, 60));
+        titlePanel.setLayout(new BorderLayout());
+        titlePanel.add(titleLabel, BorderLayout.CENTER);
+
+        // Labels and Fields
         JLabel usernameLabel = new JLabel("Username:");
-        usernameField = new JTextField(20);
-        
         JLabel passwordLabel = new JLabel("Password:");
-        passwordField = new JPasswordField(20);
-        
         JLabel confirmPasswordLabel = new JLabel("Confirm Password:");
-        confirmPasswordField = new JPasswordField(20);
-        
         JLabel fullNameLabel = new JLabel("Full Name:");
-        fullNameField = new JTextField(20);
-        
         JLabel emailLabel = new JLabel("Email:");
+
+        usernameField = new JTextField(20);
+        passwordField = new JPasswordField(20);
+        confirmPasswordField = new JPasswordField(20);
+        fullNameField = new JTextField(20);
         emailField = new JTextField(20);
-        
+
+        for (JComponent field : new JComponent[]{usernameField, passwordField, confirmPasswordField, fullNameField, emailField}) {
+            field.setFont(fieldFont);
+            field.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        }
+
+        for (JLabel label : new JLabel[]{usernameLabel, passwordLabel, confirmPasswordLabel, fullNameLabel, emailLabel}) {
+            label.setFont(labelFont);
+        }
+
+        // Buttons
         registerButton = new JButton("Register");
         backButton = new JButton("Back to Login");
-        
+
+        for (JButton button : new JButton[]{registerButton, backButton}) {
+            button.setFocusPainted(false);
+            button.setBackground(primaryColor);
+            button.setForeground(Color.blue);
+            button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+            button.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        }
+
         // Layout
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-        
-        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        titlePanel.add(titleLabel);
-        
         JPanel formPanel = new JPanel(new GridLayout(6, 2, 10, 10));
-        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        formPanel.add(usernameLabel);
-        formPanel.add(usernameField);
-        formPanel.add(passwordLabel);
-        formPanel.add(passwordField);
-        formPanel.add(confirmPasswordLabel);
-        formPanel.add(confirmPasswordField);
-        formPanel.add(fullNameLabel);
-        formPanel.add(fullNameField);
-        formPanel.add(emailLabel);
-        formPanel.add(emailField);
-        formPanel.add(backButton);
-        formPanel.add(registerButton);
-        
+        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
+        formPanel.setBackground(bgColor);
+
+        formPanel.add(usernameLabel); formPanel.add(usernameField);
+        formPanel.add(passwordLabel); formPanel.add(passwordField);
+        formPanel.add(confirmPasswordLabel); formPanel.add(confirmPasswordField);
+        formPanel.add(fullNameLabel); formPanel.add(fullNameField);
+        formPanel.add(emailLabel); formPanel.add(emailField);
+        formPanel.add(backButton); formPanel.add(registerButton);
+
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(bgColor);
         mainPanel.add(titlePanel, BorderLayout.NORTH);
         mainPanel.add(formPanel, BorderLayout.CENTER);
-        
+
         add(mainPanel);
-        
+
         // Event listeners
         registerButton.addActionListener(new ActionListener() {
             @Override
@@ -89,7 +107,7 @@ public class RegisterFrame extends JFrame {
                 handleRegistration();
             }
         });
-        
+
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -97,29 +115,27 @@ public class RegisterFrame extends JFrame {
             }
         });
     }
-    
+
     private void handleRegistration() {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
         String confirmPassword = new String(confirmPasswordField.getPassword());
         String fullName = fullNameField.getText();
         String email = emailField.getText();
-        
-        // Validate input
-        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || 
+
+        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() ||
             fullName.isEmpty() || email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         if (!password.equals(confirmPassword)) {
             JOptionPane.showMessageDialog(this, "Passwords do not match", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        // Register user
+
         boolean success = userService.registerUser(username, password, fullName, email);
-        
+
         if (success) {
             JOptionPane.showMessageDialog(this, "Registration successful! Please login.", "Success", JOptionPane.INFORMATION_MESSAGE);
             goBackToLogin();
@@ -127,7 +143,7 @@ public class RegisterFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "Registration failed. Username might be taken.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private void goBackToLogin() {
         LoginFrame loginFrame = new LoginFrame();
         loginFrame.setVisible(true);
