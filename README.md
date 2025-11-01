@@ -13,19 +13,19 @@ A desktop banking application built with Java Swing and MySQL for managing accou
 ## Screenshots
 
 ### Login Screen
-![Login](screenshots/login.png)
+<img width="763" height="611" alt="image" src="https://github.com/user-attachments/assets/1132b5f2-d84d-4826-a0ef-6d631c154df2" />
 
 ### Registration
-![Register](screenshots/register.png)
+<img width="808" height="741" alt="image" src="https://github.com/user-attachments/assets/b17a3fc3-8223-4ea4-a9bc-5585cafcd2c6" />
 
 ### Dashboard
-![Dashboard](screenshots/dashboard.png)
+<img width="992" height="581" alt="image" src="https://github.com/user-attachments/assets/60f6bb94-c912-40c9-aaaa-5d38c31500f9" />
 
 ### Transfer Funds
-![Transfer](screenshots/transfer.png)
+<img width="992" height="581" alt="image" src="https://github.com/user-attachments/assets/4318bf28-9f26-424a-864f-35a54cc25ca9" />
 
 ### Transaction History
-![Transactions](screenshots/transactions.png)
+<img width="992" height="581" alt="image" src="https://github.com/user-attachments/assets/2eda749f-0bed-4f5e-8c8c-98738f38211d" />
 
 ## Tech Stack
 
