@@ -65,17 +65,32 @@ private static final String PASSWORD = "your_password";
 
 ## Project Structure
 ```
-bytebank/
+ByteBank_byteBank/
 ├── src/
 │   └── com/bytebank/
-│       ├── dao/         # Database operations
-│       ├── model/       # Data models
-│       ├── ui/          # GUI components
-│       └── util/        # Utilities
-├── database/
-│   └── schema.sql
-└── lib/
-    └── mysql-connector.jar
+│       ├── ByteBankApp.java       # Main application entry
+│       ├── dao/                   # Database Access Objects
+│       │   ├── AccountDAO.java
+│       │   ├── TransactionDAO.java
+│       │   └── UserDAO.java
+│       ├── model/                 # Data models
+│       │   ├── Account.java
+│       │   ├── Transaction.java
+│       │   └── User.java
+│       ├── service/               # Business logic
+│       │   ├── AccountService.java
+│       │   ├── TransactionService.java
+│       │   └── UserService.java
+│       ├── ui/                    # GUI frames
+│       │   ├── DashboardFrame.java
+│       │   ├── LoginFrame.java
+│       │   └── RegisterFrame.java
+│       └── util/                  # Utilities
+│           └── DBConnection.java
+├── lib/
+│   └── mysql-connector-j-9.2.0.jar
+├── databaseSchema.txt
+└── README.md
 ```
 
 ## License
